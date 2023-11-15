@@ -2,6 +2,28 @@ const apiKey = 'd3c39f57206d5904890771c822ffaac3';
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q=';
 
 
+
+function img (mainm){
+    switch (mainm) {
+        case 'Clouds':
+          return 'images/clouds.png';
+        case 'Clear':
+          return 'images/clear.png';
+        case 'Rain':
+          return 'images/rain.png';
+        case 'Drizzle':
+          return 'images/drizzle.png';
+        case 'Mist':
+          return 'images/mist.png';
+        default:
+          return 'images/default.png';
+      }
+}
+
+
+
+
+
 document.addEventListener ('DOMContentLoaded', function(){
     const searh=document.querySelector('.search input');
     const btn_searh=document.querySelector('.search button');
@@ -21,7 +43,7 @@ document.addEventListener ('DOMContentLoaded', function(){
 
         if (searchedciudad !==''){
 
-            const URL=`${apiUrl}${searchedciudad}&appid=${apiKey}`;
+            const url=`${apiUrl}${searchedciudad}&appid=${apiKey}`;
             axios.get(url).then (function(response){
                 const datos=response.data;
                 clima.style.display = 'block';
@@ -31,7 +53,7 @@ document.addEventListener ('DOMContentLoaded', function(){
                 
                 const tmpe= Math.round(datos.main.temp);
                 tmp.textContent=`${tmpe}°C`;
-                const nomcuidad=data.name;
+                const nomcuidad=datos.name;
                 ciudad.textContent= nomcuidad;
                 const hum= datos.main.humidity;
                 humedad.textContent = `${hum}%`;
@@ -46,28 +68,16 @@ document.addEventListener ('DOMContentLoaded', function(){
             });
             
         }
-    });        
-            function imagenclima (mainm){
-                const iconPath= img (mainm);
-                imgclima.src=iconPath;
-            }
+    }); 
+    
+function imagenclima (mainm){
+    const iconPath= img (mainm);
+    imgclima.src=iconPath;
+}
 
-            function img (mainm){
-                switch (mainm) {
-                    case 'Clouds':
-                      return 'images/clouds.png';
-                    case 'Clear':
-                      return 'images/clear.png';
-                    case 'Rain':
-                      return 'images/rain.png';
-                    case 'Drizzle':
-                      return 'images/drizzle.png';
-                    case 'Mist':
-                      return 'images/mist.png';
-                    default:
-                      return 'images/default.png';
-                  }
-            }
+    
+    
+       
 
         
         });
